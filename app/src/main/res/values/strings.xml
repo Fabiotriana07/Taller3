@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mi Aplicación</string>
+
+    <!-- Login Activity -->
+    <string name="app_logo">Logo de la aplicación</string>
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="no_account">¿No tienes una cuenta?</string>
+    <string name="register_now">Regístrate ahora</string>
+
+    <!-- Register Activity -->
+    <string name="register_title">Crear cuenta</string>
+    <string name="register_subtitle">Completa la información para registrarte</string>
+    <string name="full_name">Nombre completo</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="register">Registrarse</string>
+    <string name="back">Volver atrás</string>
+
+    <!-- Error Messages -->
+    <string name="error_empty_fields">Por favor completa todos los campos</string>
+    <string name="error_invalid_email">Por favor ingresa un correo electrónico válido</string>
+    <string name="error_password_match">Las contraseñas no coinciden</string>
+    <string name="error_login">Error al iniciar sesión. Verifica tus credenciales</string>
+    <string name="error_register">Error al registrarse. Inténtalo nuevamente</string>
+
+    <!-- Success Messages -->
+    <string name="success_login">Inicio de sesión exitoso</string>
+    <string name="success_register">Registro exitoso</string>
+</resources>
