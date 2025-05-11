@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -26,20 +27,22 @@ android {
             )
         }
     }
+
     buildFeatures {
         viewBinding = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -49,12 +52,19 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Import the BoM for the Firebase platform
+    // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
 
-    // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth")
+    // Firebase dependencies (sin versión específica por usar BoM)
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation ("com.google.firebase:firebase-storage-ktx")
+    // Ubicación de Google
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
 
-    implementation("com.google.firebase:firebase-firestore")
+    // Imagen circular
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
 }
+

@@ -45,8 +45,11 @@ class MainActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
-                        val name = document.getString("name") ?: "Usuario"
-                        val welcomeMessage = "¡Bienvenido, $name!"
+                        val firstName = document.getString("firstName") ?: ""
+                        val lastName = document.getString("lastName") ?: ""
+                        val name = "$firstName $lastName".trim()
+
+                        val welcomeMessage = "¡Bienvenido, $firstName!"
                         binding.welcomeText.text = welcomeMessage
                     }
                 }

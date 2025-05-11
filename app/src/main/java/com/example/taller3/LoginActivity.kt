@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Initialize Firebase Auth
-        auth = Firebase.auth
+        auth = Firebase.auth  // Cambiado para que sea consistente con las otras actividades
 
         setupListeners()
     }
@@ -78,13 +78,10 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success
                     val user = auth.currentUser
                     if (user != null) {
-                        if (user.isEmailVerified) {
-                            Toast.makeText(this, getString(R.string.success_login), Toast.LENGTH_SHORT).show()
-                            navigateToMain()
-                        } else {
-                            Toast.makeText(this, "Por favor verifica tu correo electrónico", Toast.LENGTH_LONG).show()
-                        }
+                        Toast.makeText(this, getString(R.string.success_login), Toast.LENGTH_SHORT).show()
+                        navigateToMain()
                     }
+
                 } else {
                     // If sign in fails, display a message to the user
                     Toast.makeText(this, getString(R.string.error_login), Toast.LENGTH_SHORT).show()

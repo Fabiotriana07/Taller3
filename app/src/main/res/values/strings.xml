@@ -29,4 +29,24 @@
     <!-- Success Messages -->
     <string name="success_login">Inicio de sesión exitoso</string>
     <string name="success_register">Registro exitoso</string>
+
+
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="id_number">Número de identificación</string>
+    <string name="latitude">Latitud</string>
+    <string name="longitude">Longitud</string>
+    <string name="get_current_location">Obtener ubicación actual</string>
+    <string name="profile_image">Imagen de perfil</string>
+    <string name="location_permission_needed">Se necesita permiso de ubicación</string>
+    <string name="location_permission_denied">No se puede obtener la ubicación sin permiso</string>
+    <string name="location_service_disabled">El servicio de ubicación está desactivado</string>
+    <string name="error_invalid_location">Coordenadas de ubicación inválidas</string>
+    <string name="error_empty_location">Por favor ingrese coordenadas de ubicación</string>
+    <string name="error_getting_location">Error al obtener la ubicación</string>
+    <string name="error_upload_image">Error al subir la imagen de perfil</string>
+    <string name="picking_image">Seleccionar imagen</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
+    <string name="cancel">Cancelar</string>
 </resources>
