@@ -79,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     if (user != null) {
                         Toast.makeText(this, getString(R.string.success_login), Toast.LENGTH_SHORT).show()
+                        setDisponible(user.uid, true)
                         navigateToMain()
                     }
 
@@ -103,4 +104,13 @@ class LoginActivity : AppCompatActivity() {
         binding.edtPassword.isEnabled = !isLoading
         binding.txtRegister.isEnabled = !isLoading
     }
+    private fun setDisponible(userId: String, disponible: Boolean) {
+        val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+        db.collection("users").document(userId)
+            .update("disponible", disponible)
+            .addOnFailureListener {
+                Toast.makeText(this, "No se pudo actualizar 'disponible'", Toast.LENGTH_SHORT).show()
+            }
+    }
+
 }
