@@ -77,9 +77,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun signOut() {
-        auth.signOut()
-        navigateToLogin()
+        val user = auth.currentUser
+        if (user != null) {
+            val db = Firebase.firestore
+            db.collection("users").document(user.uid)
+                .update("disponible", false)
+                .addOnSuccessListener {
+                    auth.signOut()
+                    navigateToLogin()
+                }
+                .addOnFailureListener {
+                    // Aún así cerramos sesión si falla la actualización
+                    auth.signOut()
+                    navigateToLogin()
+                }
+        } else {
+            auth.signOut()
+            navigateToLogin()
+        }
     }
+
 
     private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
