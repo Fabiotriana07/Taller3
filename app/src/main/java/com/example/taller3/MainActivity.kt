@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
 
         // Load user data
         loadUserData()
+
+        binding.Punto4.setOnClickListener {
+            val intent = Intent(this, ListUsers::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loadUserData() {
