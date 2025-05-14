@@ -49,16 +49,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         loadUserData()
 
-        // Mapa
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-        // Botón para el punto 4
-        binding.Punto4.setOnClickListener {
-            val intent = Intent(this, ListUsers::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -106,12 +99,25 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                     )
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14f))
-                    fusedLocationClient.removeLocationUpdates(locationCallback)
+
+                    val user = Firebase.auth.currentUser
+                    user?.let {
+                        val db = Firebase.firestore
+                        db.collection("users").document(user.uid)
+                            .get()
+                            .addOnSuccessListener { document ->
+                                if (document != null && document.exists()) {
+                                    val disponible = document.getBoolean("disponible") ?: false
+                                    val message = if (disponible) "Estás disponible" else "No estás disponible"
+                                    Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                    }
                 }
             }
         }
 
-       fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, mainLooper)
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, mainLooper)
     }
 
     private fun addPointsOfInterest() {
@@ -149,7 +155,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     if (document != null && document.exists()) {
                         val firstName = document.getString("firstName") ?: ""
                         val welcomeMessage = "¡Bienvenido, $firstName!"
-                       // binding.welcomeText.text = welcomeMessage
                     }
                 }
         }
@@ -171,6 +176,35 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreateOptionsMenu(menu: android.view.Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+
+        val switchItem = menu.findItem(R.id.action_switch)
+        val switchView = switchItem.actionView?.findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.switch_available)
+
+        val user = Firebase.auth.currentUser
+        user?.let {
+            val db = Firebase.firestore
+            db.collection("users").document(user.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val disponible = document.getBoolean("disponible") ?: false
+                        switchView?.isChecked = disponible
+                    }
+                }
+        }
+
+        switchView?.setOnCheckedChangeListener { _, isChecked ->
+            user?.let {
+                val db = Firebase.firestore
+                db.collection("users").document(user.uid)
+                    .update("disponible", isChecked)
+                    .addOnSuccessListener {
+                        val message = if (isChecked) "Estás disponible" else "No estás disponible"
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                    }
+            }
+        }
+
         return true
     }
 
@@ -178,6 +212,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         return when (item.itemId) {
             R.id.action_logout -> {
                 signOut()
+                true
+            }
+            R.id.action_list_users -> {
+                val intent = Intent(this, ListUsers::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -195,7 +234,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     navigateToLogin()
                 }
                 .addOnFailureListener {
-                    // Aún así cerramos sesión si falla la actualización
                     auth.signOut()
                     navigateToLogin()
                 }

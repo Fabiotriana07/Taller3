@@ -5,5 +5,6 @@ data class User(
     val name: String,
     val imageUrl: String,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    val disponible: Boolean
 )

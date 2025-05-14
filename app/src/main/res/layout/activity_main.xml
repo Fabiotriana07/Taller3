@@ -28,7 +28,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/Punto4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -58,19 +57,6 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp" />
 </LinearLayout>-->
-</androidx.cardview.widget.CardView>
-
-<!-- Botón en la parte inferior -->
-    <Button
-        android:id="@+id/Punto4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Usuarios Disponibles"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,14 @@
         android:title="Cerrar sesión"
         android:icon="@drawable/ic_logout"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_list_users"
+        android:title="Usuarios Disponibles"
+        android:icon="@drawable/ic_location"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_switch"
+        android:title="Disponibilidad"
+        app:actionLayout="@layout/switch_layout"
+        app:showAsAction="always" />
 </menu>

@@ -123,11 +123,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     // Validar que las coordenadas no sean (0.0, 0.0)
                     if (latitude != 0.0 && longitude != 0.0) {
-                        currentLatLng = LatLng(latitude, longitude)
-                        updateMap()
+                        val newLatLng = LatLng(latitude, longitude)
+
+                        // Actualizar solo si la ubicación cambia
+                        if (currentLatLng == null || currentLatLng != newLatLng) {
+                            currentLatLng = newLatLng
+                            updateMap()
+                        }
                     } else {
                         distanceText.text = "Coordenadas inválidas del dispositivo"
                     }
+                } else {
+                    // Si no hay ubicación, actualizar la ruta con los datos actuales
+                    updateMap()
                 }
             }
         }
